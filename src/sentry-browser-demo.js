@@ -5,8 +5,8 @@ function processError() {
   raven.captureException(e);
 }
 
-function init() {
-  raven = window.Raven.config('https://5d23c63bdbb347dfa548ab3e8a3ffbf5@app.getsentry.com/74553').install();
+function init(sentryDsn) {
+  raven = window.Raven.config(sentryDsn).install();
 
   document.querySelector('form').addEventListener('submit', (e) => {
     processError();
