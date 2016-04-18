@@ -1,7 +1,7 @@
 import sentryBrowserDemo from '../../src/sentry-browser-demo';
 
 describe('sentryBrowserDemo', () => {
-  describe('Greet function', () => {
+  xdescribe('Greet function', () => {
     beforeEach(() => {
       spy(sentryBrowserDemo, 'greet');
       sentryBrowserDemo.greet();

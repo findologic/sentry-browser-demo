@@ -2,7 +2,7 @@
   "name": "sentry-browser-demo",
   "version": "0.0.1",
   "description": "Quick demo showing how to use Sentry for browser error tracking",
-  "main": "dist/sentry-browser-demo.js",
+  "main": "index.html",
   "scripts": {
     "test": "gulp",
     "lint": "gulp lint",
@@ -58,5 +58,8 @@
   "babelBoilerplateOptions": {
     "entryFileName": "sentry-browser-demo",
     "mainVarName": "sentryBrowserDemo"
+  },
+  "dependencies": {
+    "raven-js": "^2.3.0"
   }
 }

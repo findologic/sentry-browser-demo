@@ -116,7 +116,7 @@ const watchFiles = ['src/**/*', 'test/**/*', 'package.json', '**/.eslintrc', '.j
 
 // Run the headless unit tests as you make changes.
 function watch() {
-  gulp.watch(watchFiles, ['test']);
+  gulp.watch(watchFiles, ['test', 'build']);
 }
 
 function testBrowser() {
