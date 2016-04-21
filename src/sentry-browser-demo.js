@@ -1,3 +1,5 @@
+import Raven from '../node_modules/raven-js/dist/raven.js';
+
 var raven;
 
 function processError() {
@@ -6,7 +8,7 @@ function processError() {
 }
 
 function init(sentryDsn) {
-  raven = window.Raven.config(sentryDsn).install();
+  raven = Raven.config(sentryDsn).install();
 
   document.querySelector('form').addEventListener('submit', (e) => {
     processError();
