@@ -19,7 +19,7 @@
 
 
 
-            input, button, label, input:active, button:active, label:active {
+            input, button, label, select, input:active, button:active, label:active, select:active {
                 padding: 0.5rem;
                 width: 100%;
                 margin-bottom: 0.5rem;
@@ -27,11 +27,13 @@
                 font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
                 font-size: 1rem;
                 outline: none;
+                background-color: #FFFFFF;
             }
 
             .fl-labeled-option {
                 display: flex;
                 flex-flow: row wrap;
+                margin-bottom: 0.5rem;
             }
             .fl-labeled-option > label {
                 flex: 15rem 0;
@@ -71,6 +73,34 @@
                     <label for="fl-error-message">Error Message</label>
                     <input id="fl-error-message" name="fl-error-message" type="text" value="What a terrible failure!">
                 </div>
+
+                <div class="fl-tag-favorite-drink fl-labeled-option">
+                    <label for="fl-tag-favorite-drink">Tag: Favorite Drink</label>
+                    <select id="fl-tag-favorite-drink" name="fl-tag-favoriteDrink">
+                        <option>Alcohol-free</option>
+                        <option>Beer</option>
+                        <option>Vodka</option>
+                        <option>Margarita</option>
+                        <option>Whiskey</option>
+                        <option>Manhattan</option>
+                        <option>Gin and Tonic</option>
+                        <option>Tschunk</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="fl-tag-dietary-preference fl-labeled-option">
+                    <label for="fl-tag-dietary-preference">Tag: Favorite Drink</label>
+                    <select id="fl-tag-dietary-preference" name="fl-tag-dietaryPreference">
+                        <option>Omnivore</option>
+                        <option>Vegetarian</option>
+                        <option>Vegan</option>
+                        <option>Lactose-intolerant</option>
+                        <option>Gluten-intolerant</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
                 <button class="fl-cause-error" type="submit">Oh no!</button>
             </form>
         </div>
