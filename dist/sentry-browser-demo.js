@@ -69,37 +69,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _singleton2 = _interopRequireDefault(_singleton);
 	
-	var _uuid = __webpack_require__(36);
-	
-	var _uuid2 = _interopRequireDefault(_uuid);
-	
-	var _errorUi = __webpack_require__(38);
+	var _errorUi = __webpack_require__(36);
 	
 	var _errorUi2 = _interopRequireDefault(_errorUi);
+	
+	var _identity = __webpack_require__(37);
+	
+	var _identity2 = _interopRequireDefault(_identity);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var raven = void 0;
 	var errorUi = void 0;
 	
-	/**
-	 * @return {string} Persistent UUID4 for identifying users anonymously across
-	 *    incidents.
-	 */
-	function getIdentity() {
-	  var identity = window.localStorage.getItem('sentry-identity');
-	  if (identity === null) {
-	    identity = _uuid2.default.v4();
-	  }
-	
-	  return identity;
-	}
-	
 	function init(sentryDsn) {
 	  raven = _singleton2.default.config(sentryDsn, {
 	    // We can resolve issues ahead of deployment, so they are silenced until the
 	    // version number is bumped.
-	    release: '0.1.0',
+	    release: '0.1.1',
 	
 	    // Before the error is tracked, we have an opportunity to add extra
 	    // information. We use it to add some extra information based on the form.
@@ -121,7 +108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // track how many users are affected by an issue, without threatening their
 	  // freedoms.
 	  _singleton2.default.setUserContext({
-	    id: getIdentity()
+	    id: (0, _identity2.default)()
 	  });
 	
 	  exports.errorUi = errorUi = new _errorUi2.default(document.querySelector('.fl-container'));
@@ -3763,6 +3750,135 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _identity = __webpack_require__(37);
+	
+	var _identity2 = _interopRequireDefault(_identity);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ErrorUi = function () {
+	  /**
+	   * @param {Element} uiContainer
+	   */
+	
+	  function ErrorUi(uiContainer) {
+	    _classCallCheck(this, ErrorUi);
+	
+	    this._uiContainer = uiContainer;
+	    this._installEventListeners();
+	    this._formData = undefined;
+	
+	    // Show anonymous identity UUID.
+	    this._uiContainer.querySelector('#fl-identity').value = (0, _identity2.default)();
+	  }
+	
+	  /**
+	   * @returns {{message: string, tags: {string: *}}}
+	   */
+	
+	
+	  _createClass(ErrorUi, [{
+	    key: '_installEventListeners',
+	    value: function _installEventListeners() {
+	      var _this = this;
+	
+	      // Prevent form submission to avoid needless page reload.
+	      this._uiContainer.querySelector('form').addEventListener('submit', function (e) {
+	        e.preventDefault();
+	      });
+	
+	      // Throw an exception.
+	      var errorButton = this._uiContainer.querySelector('form button[type=submit]');
+	      errorButton.addEventListener('click', function () {
+	        _this._refreshFormData();
+	
+	        // Briefly disable the button to convey the effect that something happened.
+	        errorButton.disabled = true;
+	        window.setTimeout(function () {
+	          errorButton.disabled = false;
+	        }, 1500);
+	
+	        throw new Error(_this.formData.message);
+	      });
+	    }
+	  }, {
+	    key: '_refreshFormData',
+	    value: function _refreshFormData() {
+	      this._formData = {
+	        tags: {}
+	      };
+	
+	      var form = this._uiContainer.querySelector('form');
+	      var errorMessageElem = form.querySelector('input[name="fl-error-message"]');
+	
+	      var _arr = ['favoriteDrink', 'dietaryPreference'];
+	      for (var _i = 0; _i < _arr.length; _i++) {
+	        var tag = _arr[_i];
+	        var tagElement = form.querySelector('select[name*=' + tag + ']');
+	        this._formData.tags[tag] = tagElement.value;
+	      }
+	
+	      this._formData.message = errorMessageElem.value;
+	    }
+	  }, {
+	    key: 'formData',
+	    get: function get() {
+	      return this._formData;
+	    }
+	  }]);
+	
+	  return ErrorUi;
+	}();
+	
+	exports.default = ErrorUi;
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = getIdentity;
+	
+	var _uuid = __webpack_require__(38);
+	
+	var _uuid2 = _interopRequireDefault(_uuid);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IDENTITY_LOCAL_STORAGE_KEY = 'sentry-identity';
+	
+	/**
+	 * @return {string} Persistent UUID4 for identifying users anonymously across
+	 *    incidents.
+	 */
+	function getIdentity() {
+	  var identity = window.localStorage.getItem(IDENTITY_LOCAL_STORAGE_KEY);
+	  if (identity === null) {
+	    identity = _uuid2.default.v4();
+	    window.localStorage.setItem(IDENTITY_LOCAL_STORAGE_KEY, identity);
+	  }
+	
+	  return identity;
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
 	//     uuid.js
 	//
 	//     Copyright (c) 2010-2012 Robert Kieffer
@@ -3771,7 +3887,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Unique ID creation requires a high quality random # generator.  We feature
 	// detect to determine the best RNG source, normalizing to a function that
 	// returns 128-bits of randomness, since that's what's usually required
-	var _rng = __webpack_require__(37);
+	var _rng = __webpack_require__(39);
 	
 	// Maps for number <-> hex string conversion
 	var _byteToHex = [];
@@ -3949,7 +4065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -3985,86 +4101,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 38 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var ErrorUi = function () {
-	  /**
-	   * @param {Element} uiContainer
-	   */
-	
-	  function ErrorUi(uiContainer) {
-	    _classCallCheck(this, ErrorUi);
-	
-	    this._uiContainer = uiContainer;
-	    this._installEventListeners();
-	    this._formData = undefined;
-	  }
-	
-	  /**
-	   * @returns {{message: string, tags: {string: *}}}
-	   */
-	
-	
-	  _createClass(ErrorUi, [{
-	    key: '_installEventListeners',
-	    value: function _installEventListeners() {
-	      var _this = this;
-	
-	      // Prevent form submission to avoid needless page reload.
-	      this._uiContainer.querySelector('form').addEventListener('submit', function (e) {
-	        e.preventDefault();
-	      });
-	
-	      // Throw an exception.
-	      this._uiContainer.querySelector('form button[type=submit]').addEventListener('click', function () {
-	        _this._refreshFormData();
-	
-	        throw new Error(_this.formData.message);
-	      });
-	    }
-	  }, {
-	    key: '_refreshFormData',
-	    value: function _refreshFormData() {
-	      this._formData = {
-	        tags: {}
-	      };
-	
-	      var form = this._uiContainer.querySelector('form');
-	      var errorMessageElem = form.querySelector('input[name="fl-error-message"]');
-	
-	      var _arr = ['favoriteDrink', 'dietaryPreference'];
-	      for (var _i = 0; _i < _arr.length; _i++) {
-	        var tag = _arr[_i];
-	        var tagElement = form.querySelector('select[name*=' + tag + ']');
-	        this._formData.tags[tag] = tagElement.value;
-	      }
-	
-	      this._formData.message = errorMessageElem.value;
-	    }
-	  }, {
-	    key: 'formData',
-	    get: function get() {
-	      return this._formData;
-	    }
-	  }]);
-	
-	  return ErrorUi;
-	}();
-	
-	exports.default = ErrorUi;
 
 /***/ }
 /******/ ])
