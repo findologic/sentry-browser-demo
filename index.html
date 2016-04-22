@@ -24,12 +24,15 @@
         </style>
     </head>
     <body>
-        <form>
-            <button class="fl-cause-error" type="submit">Oh no!</button>
-        </form>
+        <div class="fl-container">
+            <form>
+                <input title="Error Message" name="fl-error-message" type="text" value="What a terrible failure!">
+                <button class="fl-cause-error" type="submit">Oh no!</button>
+            </form>
+        </div>
 
         <script>
-            window.sentryBrowserDemo.default('this should be your Sentry DSN');
+            window.sentryBrowserDemo.default('https://39779e3fb99d4b83b52cb3d51074208f@app.getsentry.com/74553');
         </script>
     </body>
 </html>
