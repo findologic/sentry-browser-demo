@@ -1,3 +1,5 @@
+import getIdentity from './identity';
+
 export default class ErrorUi {
   /**
    * @param {Element} uiContainer
@@ -6,6 +8,9 @@ export default class ErrorUi {
     this._uiContainer = uiContainer;
     this._installEventListeners();
     this._formData = undefined;
+
+    // Show anonymous identity UUID.
+    this._uiContainer.querySelector('#fl-identity').value = getIdentity();
   }
 
   /**
@@ -22,8 +27,15 @@ export default class ErrorUi {
     });
 
     // Throw an exception.
-    this._uiContainer.querySelector('form button[type=submit]').addEventListener('click', () => {
+    const errorButton = this._uiContainer.querySelector('form button[type=submit]');
+    errorButton.addEventListener('click', () => {
       this._refreshFormData();
+
+      // Briefly disable the button to convey the effect that something happened.
+      errorButton.disabled = true;
+      window.setTimeout(() => {
+        errorButton.disabled = false;
+      }, 1500);
 
       throw new Error(this.formData.message);
     });

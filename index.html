@@ -13,13 +13,27 @@
             html {
                 border-top: 1rem solid rgb(242, 157, 0);
             }
+            body {
+                max-width: 50rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
             * {
                 box-sizing: border-box;
             }
 
+            h1 > img {
+                max-height: 2.3rem;
+                display: inline;
+                max-width: 2.3rem;
+                vertical-align: top;
+            }
 
+            .fl-container {
+                margin: 0.5rem;
+            }
 
-            input, button, label, select, input:active, button:active, label:active, select:active {
+            input, label, select, input:active, label:active, select:active {
                 padding: 0.5rem;
                 width: 100%;
                 margin-bottom: 0.5rem;
@@ -28,6 +42,9 @@
                 font-size: 1rem;
                 outline: none;
                 background-color: #FFFFFF;
+            }
+            button {
+                cursor: pointer;
             }
 
             .fl-labeled-option {
@@ -47,13 +64,21 @@
             }
 
             .fl-cause-error {
-                background: rgb(173, 30, 30) none repeat scroll 0% 0%;
+                background-color: rgb(173, 30, 30);
                 border: medium none;
                 color: rgb(240, 240, 240);
                 padding: 1rem;
+                width: 100%;
             }
             .fl-cause-error:active {
                 outline: none;
+            }
+            .fl-cause-error:disabled, .fl-cause-error:active {
+                background-color: #CC6E6E;
+            }
+
+            #fl-identity {
+                background-color: #F1F1F1;
             }
 
             @media screen and (max-width: 495px) {
@@ -68,6 +93,11 @@
     </head>
     <body>
         <div class="fl-container">
+            <h1>
+                <img src="https://media.getsentry.com/_static/5cb4f723143c76727c919645145dad8e/getsentry/images/branding/svg/sentry-glyph-dark.svg">
+                Sentry Demo
+            </h1>
+
             <form>
                 <div class="fl-error-message fl-labeled-option">
                     <label for="fl-error-message">Error Message</label>
@@ -101,7 +131,12 @@
                     </select>
                 </div>
 
-                <button class="fl-cause-error" type="submit">Oh no!</button>
+                <div class="fl-identity fl-labeled-option">
+                    <label for="fl-identity">Identity</label>
+                    <input id="fl-identity" type="text" disabled>
+                </div>
+
+                <button class="fl-cause-error" type="submit">Cause an error!</button>
             </form>
         </div>
 
