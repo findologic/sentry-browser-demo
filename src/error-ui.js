@@ -30,14 +30,18 @@ export default class ErrorUi {
   }
 
   _refreshFormData() {
-    var form = this._uiContainer.querySelector('form');
-    var errorMessageElem = form.querySelector('input[name="fl-error-message"]');
-
     this._formData = {
-      message: errorMessageElem.value,
-      tags: {
-        foo: 'bar'
-      }
+      tags: {}
     };
+
+    const form = this._uiContainer.querySelector('form');
+    const errorMessageElem = form.querySelector('input[name="fl-error-message"]');
+
+    for (let tag of ['favoriteDrink', 'dietaryPreference']) {
+      let tagElement = form.querySelector('select[name*=' + tag + ']');
+      this._formData.tags[tag] = tagElement.value;
+    }
+
+    this._formData.message = errorMessageElem.value;
   }
 }
