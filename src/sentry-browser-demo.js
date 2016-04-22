@@ -24,7 +24,7 @@ function init(sentryDsn) {
   raven = Raven.config(sentryDsn, {
     // We can resolve issues ahead of deployment, so they are silenced until the
     // version number is bumped.
-    release: '0.0.1',
+    release: '0.1.0',
 
     // Before the error is tracked, we have an opportunity to add extra
     // information. We use it to add some extra information based on the form.
