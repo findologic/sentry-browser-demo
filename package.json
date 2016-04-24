@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "babel-plugin-lodash": "^2.3.0",
+    "lodash": "^4.11.1",
     "raven-js": "^2.3.0",
     "uuid": "^2.0.2"
   }
