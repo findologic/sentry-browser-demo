@@ -86,7 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  raven = _singleton2.default.config(sentryDsn, {
 	    // We can resolve issues ahead of deployment, so they are silenced until the
 	    // version number is bumped.
-	    release: '0.1.1',
+	    release: '0.1.2',
 	
 	    // Before the error is tracked, we have an opportunity to add extra
 	    // information. We use it to add some extra information based on the form.
@@ -3839,7 +3839,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return ErrorUi;
 	}();
-	
+
 	exports.default = ErrorUi;
 
 /***/ },
