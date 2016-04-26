@@ -1,0 +1,8 @@
+before_script:
+  - apt-get update -qq && apt-get install -y -qq nodejs
+  - npm install -g gulp
+  - npm install
+
+build:
+  script:
+    - gulp build
