@@ -1,5 +1,61 @@
-.sentry-logo {
+.sentry-logo, .demo img {
     border: none !important;
     height: 13rem;
     box-shadow: none !important;
+}
+
+.sentry-overview-frame {
+    width: 68%;
+    height: 40rem;
+    margin-top: 10rem;
+}
+
+.demo-frame {
+    width: 30%;
+    height: 40rem;
+    margin-top: 10rem;
+}
+
+.demo {
+    min-width: 72rem;
+}
+
+.demo img {
+
+}
+
+h3 img {
+    border: none !important;
+    box-shadow: none !important;
+    max-height: 3.5rem !important;
+    max-width: 3.5rem !important;
+    vertical-align: middle !important;
+}
+
+.last-slide ul {
+    margin-left: 60%;
+    font-size: 1.5rem;
+    list-style: none;
+}
+
+.last-slide ul li::before {
+    margin-left: -2rem;
+    font-family: FontAwesome, sans-serif;
+}
+.last-slide ul li:nth-child(1)::before {
+    content: '\f09b';
+}
+.last-slide ul li:nth-child(2)::before {
+    content: '\f0c1';
+}
+.last-slide ul li:nth-child(3)::before {
+ content: '\f108';
+}
+
+.last-slide a {
+    color: #111;
+}
+
+.languages-overview img {
+    zoom: 0.8;
 }

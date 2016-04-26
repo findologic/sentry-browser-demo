@@ -4,14 +4,17 @@
         <meta charset="utf-8">
         <title>Tracking JS Errors Browser Using Sentry</title>
         <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,300" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
         <link rel="stylesheet" href="../node_modules/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="../node_modules/reveal.js/lib/css/zenburn.css">
+        <!--<link rel="stylesheet" href="../node_modules/reveal.js/css/theme/black.css">-->
         <link rel="stylesheet" href="theme/findologic.css">
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
-                <section data-markdown>
+                <section>
                     <img class="sentry-logo"
                          src="https://media.getsentry.com/_static/7cf1ea81fd73755a47bf4265fd76f54f/getsentry/images/branding/svg/sentry-glyph-dark.svg">
                     <h2>Tracking JS Errors in the Browser using <a href="https://getsentry.com/">Sentry</a></h2>
@@ -21,8 +24,179 @@
                 </section>
 
                 <section>
-                    slide 2
-                    <img src="img/languages.png">
+                    <section>
+                        <h3>What is Sentry?</h3>
+                    </section>
+
+                    <section>
+                        <h3>3<sup>rd</sup> party service integrations</h3>
+                        <ul>
+                            <li>
+                                <strong>Notifications:</strong>
+                                Campfire, Flowdock, Grove.io, Hipchat, IRC, OpsGenie, PagerDuty, Pushover, Slack,
+                                Twilio, Webhooks
+                            </li>
+                            <li>
+                                <strong>Issue tracking:</strong>
+                                Bitbucket, GitLab, Jira, Lighthouse, Phabricator, Pivotal Tracker, Redmine, Sprint.ly,
+                                Taiga, Teamwork, Trello
+                            </li>
+                            <li>
+                                <strong>Release Tracking:</strong>
+                                Freight, Heroku
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="languages-overview">
+                        <img src="img/languages.png">
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Use it!</h3>
+                        <img src="img/use_it.jpg">
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/js.svg">
+                            JavaScript (Browser)
+                        </h3>
+                        <pre><code data-trim>&lt;script src="https://cdn.ravenjs.com/2.3.0/raven.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    Raven.config('your DSN goes here').install()
+&lt;/script&gt;</code></pre>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/node.svg">
+                            JavaScript (Node)
+                        </h3>
+                        <pre><code data-trim>$ npm install raven --save</code></pre>
+                        <pre><code data-trim>var raven = require('raven');
+var client = new raven.Client('your DSN goes here');
+// Use Sentry as global error tracker.
+client.patchGlobal();</code></pre>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/ruby.svg">
+                            Ruby
+                        </h3>
+                        <pre><code data-trim>$ gem "sentry-raven"</code></pre>
+                        <pre><code data-trim>require 'raven'
+
+Raven.configure do |config|
+  config.dsn = 'your DSN goes here'
+end
+
+# Configure Rack to use it (optional; in config.ru).
+use Raven::Rack</code></pre>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/php.svg">
+                            PHP
+                        </h3>
+                        <pre><code data-trim>$ composer require "raven/raven"</code></pre>
+                        <pre><code data-trim>// In the autoloader:
+require_once '/path/to/Raven/library/Raven/Autoloader.php';
+Raven_Autoloader::register();</code></pre>
+                        <pre><code data-trim>// In the application:
+$client = new Raven_Client('your DSN goes here');
+$error_handler = new Raven_ErrorHandler($client);
+$error_handler->registerExceptionHandler();
+$error_handler->registerErrorHandler();
+$error_handler->registerShutdownFunction()</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Demo time!</h3>
+                    <img src="img/bsod.png">
+                </section>
+
+                <section class="demo">
+                    <p>
+                        http://is.gd/sentry_meetup
+                    </p>
+                    <iframe class="sentry-overview-frame"
+                            src="https://app.getsentry.com/christian-ortner/sentry-browser-demo/">
+                    </iframe>
+                    <iframe class="demo-frame"
+                            src="http://howard.github.io/sentry-browser-demo/">
+                    </iframe>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Welcome to the real world</h3>
+                        <img src="img/welcome_to_the_real_world.jpg">
+                    </section>
+
+                    <section>
+                        <h4>
+                            Example issue:
+                            <a href="https://app.getsentry.com/findologic/findologic-js/issues/120045091/">
+                                IE8 incompatibility
+                            </a>
+                        </h4>
+                    </section>
+
+                    <section>
+                        <h4>Issue overview</h4>
+                        <img src="img/issue_overview.png">
+                    </section>
+
+                    <section>
+                        <h4>Events over time</h4>
+                        <img src="img/event_rate.png">
+                    </section>
+                </section>
+
+                <section>
+                    <h3>How Sentry was great for us</h3>
+                    <ul>
+                        <li>Several integration problems detected</li>
+                        <li>A sneaky bug was found</li>
+                        <li>As it turns out, a lot of Russians still use Windows XP</li>
+                        <li>The collected data helps us keep our file size footprint small, especially for mobile</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Gotchas</h3>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Conclusion</h3>
+                </section>
+
+                <section class="last-slide" data-background="img/key_visual.png">
+                    <ul>
+                        <li>
+                            <a href="http://github.com/howard/sentry-browser-demo">
+                                howard/sentry-browser-demo
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://howard.github.io/sentry-browser-demo">
+                                http://howard.github.io/sentry-browser-demo
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://howard.github.io/sentry-browser-demo/slides">
+                                http://howard.github.io/sentry-browser-demo/slides
+                            </a>
+                        </li>
+                    </ul>
                 </section>
             </div>
         </div>
