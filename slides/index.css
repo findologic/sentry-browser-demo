@@ -1,4 +1,4 @@
-.sentry-logo, .demo img {
+.sentry-logo, .demo img, .integrations-logos > img {
     border: none !important;
     height: 13rem;
     box-shadow: none !important;
@@ -24,6 +24,10 @@
 
 }
 
+section[data-background] > h1, section[data-background] > h2 {
+    -webkit-text-stroke: 1px #111;
+}
+
 h3 img {
     border: none !important;
     box-shadow: none !important;
@@ -32,8 +36,16 @@ h3 img {
     vertical-align: middle !important;
 }
 
+.integrations-logos {
+
+}
+
+.integrations-logos > img {
+    max-height: 3rem;
+    margin: 1rem !important;
+}
+
 .last-slide ul {
-    margin-left: 60%;
     font-size: 1.5rem;
     list-style: none;
 }
