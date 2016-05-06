@@ -1,6 +1,6 @@
 {
   "name": "sentry-browser-demo",
-  "version": "0.0.1",
+  "version": "0.1.3",
   "description": "Quick demo showing how to use Sentry for browser error tracking",
   "main": "dist/sentry-browser-demo.js",
   "scripts": {
