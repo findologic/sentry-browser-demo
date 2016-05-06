@@ -1,43 +1,24 @@
-.sentry-logo, .demo img, .integrations-logos > img {
+.sentry-logo, .demo img, .integrations-logos > img, .alternatives-logos > img {
     border: none !important;
     height: 13rem;
     box-shadow: none !important;
 }
 
-.sentry-overview-frame {
-    width: 68%;
-    height: 40rem;
-    margin-top: 10rem;
+section[data-background] > h1 {
+    -webkit-text-stroke: 3px #111;
+    text-shadow: 0 0 40px #111;
 }
 
-.demo-frame {
-    width: 30%;
-    height: 40rem;
-    margin-top: 10rem;
-}
-
-.demo {
-    min-width: 72rem;
-}
-
-.demo img {
-
-}
-
-section[data-background] > h1, section[data-background] > h2 {
-    -webkit-text-stroke: 1px #111;
+.reveal li {
+    padding-bottom: 1rem;
 }
 
 h3 img {
     border: none !important;
     box-shadow: none !important;
-    max-height: 3.5rem !important;
-    max-width: 3.5rem !important;
+    max-height: 11rem !important;
+    max-width: 11rem !important;
     vertical-align: middle !important;
-}
-
-.integrations-logos {
-
 }
 
 .integrations-logos > img {
@@ -45,9 +26,15 @@ h3 img {
     margin: 1rem !important;
 }
 
+.alternatives-logos > img {
+    max-height: 8rem;
+}
+
 .last-slide ul {
     font-size: 1.5rem;
     list-style: none;
+    float: right;
+    max-width: 34rem;
 }
 
 .last-slide ul li::before {
@@ -70,4 +57,16 @@ h3 img {
 
 .languages-overview img {
     zoom: 0.8;
+}
+
+@keyframes beat {
+    from { transform: none; }
+    10% { transform: scale(0.9); }
+    to { transform: none; }
+}
+
+img[src="img/burger.png"] {
+    border: none !important;
+    box-shadow: none !important;
+    animation: beat .5s infinite;
 }

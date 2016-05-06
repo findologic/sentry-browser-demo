@@ -16,7 +16,7 @@
             <div class="slides">
                 <section>
                     <img class="sentry-logo"
-                         src="https://media.getsentry.com/_static/7cf1ea81fd73755a47bf4265fd76f54f/getsentry/images/branding/svg/sentry-glyph-dark.svg">
+                         src="img/sentry.svg">
                     <h1>Tracking JS Errors in the Browser using <a href="https://getsentry.com/">Sentry</a></h1>
                     <p>
                         #technoburger
@@ -25,7 +25,7 @@
 
                 <section>
                     <section data-background="img/tf2_sentry.jpg">
-                        <h2>What is Sentry?</h2>
+                        <h1>What is Sentry?</h1>
                     </section>
 
                     <section>
@@ -61,7 +61,7 @@
                     </section>
 
                     <section>
-                        <h3>3<sup>rd</sup> party service integrations</h3>
+                        <h3>Third party service integrations</h3>
                         <div class="integrations-logos">
                             <img src="img/integrations/bitbucket.svg">
                             <img src="img/integrations/campfire.png">
@@ -124,12 +124,12 @@
 
                     <section>
                         <h3>Alternatives</h3>
-                        <ul>
-                            <li>Airbrake</li>
-                            <li>Track:js (JS-only)</li>
-                            <li>Raygun</li>
-                            <li>Errorception (JS-only)</li>
-                        </ul>
+                        <div class="alternatives-logos">
+                            <img src="img/alternatives/airbrake.svg">
+                            <img src="img/alternatives/errorception.png">
+                            <img src="img/alternatives/raygun.png">
+                            <img src="img/alternatives/trackjs.png">
+                        </div>
 
                         <aside class="notes">
                             <ul>
@@ -158,13 +158,12 @@
 
                 <section>
                     <section data-background="img/use_it.jpg">
-                        <h2>Use it!</h2>
+                        <h1>Use it!</h1>
                     </section>
 
                     <section>
                         <h3>
                             <img src="img/js.svg">
-                            JavaScript (Browser)
                         </h3>
                         <pre><code data-trim>
 &lt;script src="https://cdn.ravenjs.com/2.3.0/raven.min.js"&gt;&lt;/script&gt;
@@ -175,7 +174,7 @@
                         <pre><code data-trim>
 // Log an error manually.
 try {
-    throw new Error('Something went wrong');
+    thisFunctionDoesNotExist('really!');
 } catch (e) {
     Raven.captureException(e);
 }
@@ -191,7 +190,6 @@ try {
                     <section>
                         <h3>
                             <img src="img/node.svg">
-                            JavaScript (Node)
                         </h3>
                         <pre><code data-trim>$ npm install raven --save</code></pre>
                         <pre><code data-trim>
@@ -205,7 +203,7 @@ client.patchGlobal();
                         <pre><code data-trim>
 // Log an error manually.
 try {
-    throw new Error('Something went wrong');
+    thisFunctionDoesNotExist('really!');
 } catch (e) {
     client.captureException(e);
 }
@@ -215,7 +213,6 @@ try {
                     <section>
                         <h3>
                             <img src="img/ruby.svg">
-                            Ruby
                         </h3>
                         <pre><code data-trim>$ gem "sentry-raven"</code></pre>
                         <pre><code data-trim>
@@ -242,7 +239,6 @@ end
                     <section>
                         <h3>
                             <img src="img/php.svg">
-                            PHP
                         </h3>
                         <pre><code data-trim>
 $ composer require "raven/raven"
@@ -273,25 +269,28 @@ try {
 
                 <section>
                     <section data-background="img/bsod.png">
-                        <h2>Demo time!</h2>
+                        <h1>Demo time!</h1>
                     </section>
 
-                    <section class="demo">
+                    <section>
                         <p>
-                            http://is.gd/sentry_meetup
+                            http://is.gd/sntry
                         </p>
-                        <iframe class="sentry-overview-frame"
-                                src="https://app.getsentry.com/christian-ortner/sentry-browser-demo/">
+                        <iframe class="stretch"
+                                src="http://findologic.github.io/sentry-browser-demo/">
                         </iframe>
-                        <iframe class="demo-frame"
-                                src="http://howard.github.io/sentry-browser-demo/">
+                    </section>
+
+                    <section>
+                        <iframe class="stretch"
+                                src="https://app.getsentry.com/christian-ortner/sentry-browser-demo/">
                         </iframe>
                     </section>
                 </section>
 
                 <section>
                     <section data-background="img/welcome_to_the_real_world.jpg">
-                        <h2>Welcome to the real world</h2>
+                        <h1>Welcome to the real world</h1>
                     </section>
 
                     <section>
@@ -305,17 +304,17 @@ try {
 
                     <section>
                         <h3>Issue overview</h3>
-                        <img src="img/issue_overview.png">
+                        <img class="stretch" src="img/issue_overview.png">
                     </section>
 
                     <section>
                         <h3>Events over time</h3>
-                        <img src="img/event_rate.png">
+                        <img class="stretch" src="img/event_rate.png">
                     </section>
                 </section>
 
                 <section>
-                    <h2>How Sentry was great for us</h2>
+                    <h1>How Sentry was great for us</h1>
                     <ul>
                         <li>We found integration problems</li>
                         <li>We found a deceptive bug</li>
@@ -327,7 +326,7 @@ try {
 
                 <section>
                     <section data-background="img/pitfalls.png">
-                        <h2>Pitfalls</h2>
+                        <h1>Pitfalls</h1>
                     </section>
 
                     <section>
@@ -361,55 +360,57 @@ Raven.config('your DSN goes here', {
 
                     <section>
                         <h3>Be mindful of privacy</h3>
-                        <ul>
-                            <li>Override the user context</li>
-                            <li>Use the data scrubber</li>
-                        </ul>
                         <img src="img/data_scrubber.png">
 
                         <aside class="notes">
                             <ul>
-                                <li></li>
+                                <li>Override the user context</li>
+                                <li>Use the data scrubber</li>
                             </ul>
                         </aside>
                     </section>
                 </section>
 
                 <section>
-                    <h2>Conclusion</h2>
+                    <h1>Conclusion</h1>
                     <ol>
-                        <li>Integrating Sentry anywhere is super easy</li>
+                        <li>Integrating Sentry is super easy</li>
                         <li>Plays well with issue trackers etc.</li>
                         <li>White-/Blacklisting errors can be tricky</li>
                         <li>Peace of mind after deployments</li>
                     </ol>
                 </section>
 
-                <section class="last-slide" data-background="img/key_visual.png">
+                <section>
+                    <section class="last-slide" data-background="img/key_visual.png">
+                        <h1 class="fragment">Go out there and catch errors!</h1>
+                        <ul>
+                            <li>
+                                <a href="http://github.com/findologic/sentry-browser-demo">
+                                    findologic/sentry-browser-demo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://findologic.github.io/sentry-browser-demo">
+                                    http://findologic.github.io/sentry-browser-demo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://findologic.github.io/sentry-browser-demo/slides">
+                                    http://findologic.github.io/sentry-browser-demo/slides
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
 
-                    <h1 class="fragment">Go out there and catch errors!</h1>
-                    <ul>
-                        <li>
-                            <a href="http://github.com/howard/sentry-browser-demo">
-                                howard/sentry-browser-demo
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://howard.github.io/sentry-browser-demo">
-                                http://howard.github.io/sentry-browser-demo
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://howard.github.io/sentry-browser-demo/slides">
-                                http://howard.github.io/sentry-browser-demo/slides
-                            </a>
-                        </li>
-                    </ul>
+                    <section>
+                        <img src="img/burger.png">
+                    </section>
                 </section>
             </div>
         </div>
 
-        <img class="findologo" src="https://secure.findologic.com/login.symfony/web/images/fl_logo.svg">
+        <img class="findologo" src="img/findologic.svg">
 
         <script src="../node_modules/reveal.js/lib/js/head.min.js"></script>
         <script src="../node_modules/reveal.js/js/reveal.js"></script>
