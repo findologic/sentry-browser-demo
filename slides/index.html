@@ -1,0 +1,442 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tracking JS Errors Browser Using Sentry</title>
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,300" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../node_modules/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="../node_modules/reveal.js/lib/css/zenburn.css">
+        <!--<link rel="stylesheet" href="../node_modules/reveal.js/css/theme/black.css">-->
+        <link rel="stylesheet" href="theme/findologic.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <img class="sentry-logo"
+                         src="img/sentry.svg">
+                    <h1>Tracking JS Errors in the Browser using <a href="https://getsentry.com/">Sentry</a></h1>
+                    <p>
+                        #technoburger
+                    </p>
+                </section>
+
+                <section>
+                    <section data-background="img/tf2_sentry.jpg">
+                        <h1>What is Sentry?</h1>
+                    </section>
+
+                    <section>
+                        <h3>Basics</h3>
+                        <ul>
+                            <li>Language-agnostic error tracker</li>
+                            <li>Semi-automatic grouping of incidents</li>
+                            <li>Filterable tags</li>
+                            <li>Ownership through assignment</li>
+                            <li>Resolve or snooze to mark issues as done</li>
+                            <li>Easy-to-implement protocol</li>
+                            <li>Extensive REST API</li>
+                        </ul>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Not a logging service</li>
+                                <li></li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    <section class="languages-overview">
+                        <img src="img/languages.png">
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Raven is the official client</li>
+                                <li>Raven exists in many languages</li>
+                                <li>Raven has bindings for many frameworks</li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>Third party service integrations</h3>
+                        <div class="integrations-logos">
+                            <img src="img/integrations/bitbucket.svg">
+                            <img src="img/integrations/campfire.png">
+                            <img src="img/integrations/flowdock.png">
+                            <img src="img/integrations/freight.png">
+                            <img src="img/integrations/gitlab.png">
+                            <img src="img/integrations/grove_io.png">
+                            <img src="img/integrations/heroku.svg">
+                            <img src="img/integrations/hipchat.svg">
+                            <img src="img/integrations/jira.png">
+                            <img src="img/integrations/lighthouse.png">
+                            <img src="img/integrations/ops_genie.png">
+                            <img src="img/integrations/pagerduty.png">
+                            <img src="img/integrations/phabricator.png">
+                            <img src="img/integrations/pivotal_tracker.png">
+                            <img src="img/integrations/pushover.png">
+                            <img src="img/integrations/redmine.png">
+                            <img src="img/integrations/slack.png">
+                            <img src="img/integrations/sprintly.png">
+                            <img src="img/integrations/taiga.png">
+                            <img src="img/integrations/teamwork.png">
+                            <img src="img/integrations/trello.svg">
+                            <img src="img/integrations/twilio.png">
+                        </div>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Integrations for issues, releases and notifications.</li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>Hosting</h3>
+                        <ul>
+                            <li>
+                                getsentry.com
+                                <ul>
+                                    <li>Small plan starts at 29 USD/month</li>
+                                    <li>9 USD/month for hobbyists</li>
+                                    <li>I'm not paid to mention that</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Self-hosted
+                                <ul>
+                                    <li>100% open source</li>
+                                    <li>Tricky to set up and scale</li>
+                                    <li>Working Docker image exists, but doesn't scale</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Self-hosted set up complicated due to number of cogs</li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>Alternatives</h3>
+                        <div class="alternatives-logos">
+                            <img src="img/alternatives/airbrake.svg">
+                            <img src="img/alternatives/errorception.png">
+                            <img src="img/alternatives/raygun.png">
+                            <img src="img/alternatives/trackjs.png">
+                        </div>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Airbrake: Ruby-centric, pretty similar to sentry, less open</li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>Why we picked Sentry</h3>
+                        <ul>
+                            <li>Provider-independent through open source</li>
+                            <li>Reasonable pricing</li>
+                            <li>Works <strong>really</strong> well</li>
+                            <li>Very active ongoing development</li>
+                            <li>Kickass tech support</li>
+                        </ul>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Easy to contribute to (mostly).</li>
+                            </ul>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section data-background="img/use_it.jpg">
+                        <h1>Use it!</h1>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/js.svg">
+                        </h3>
+                        <pre><code data-trim>
+&lt;script src="https://cdn.ravenjs.com/2.3.0/raven.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    Raven.config('your DSN goes here').install();
+&lt;/script&gt;
+                        </code></pre>
+                        <pre><code data-trim>
+// Log an error manually.
+try {
+    thisFunctionDoesNotExist('really!');
+} catch (e) {
+    Raven.captureException(e);
+}
+                        </code></pre>
+
+                        <aside class="notes">
+                            <ul>
+                                <li>You can define a default context, tags, user IDs etc.</li>
+                            </ul>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/node.svg">
+                        </h3>
+                        <pre><code data-trim>$ npm install raven --save</code></pre>
+                        <pre><code data-trim>
+var raven = require('raven');
+var client = new raven.Client('your DSN goes here');
+                        </code></pre>
+                        <pre><code data-trim>
+// Use Sentry as global error tracker.
+client.patchGlobal();
+                        </code></pre>
+                        <pre><code data-trim>
+// Log an error manually.
+try {
+    thisFunctionDoesNotExist('really!');
+} catch (e) {
+    client.captureException(e);
+}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/ruby.svg">
+                        </h3>
+                        <pre><code data-trim>$ gem "sentry-raven"</code></pre>
+                        <pre><code data-trim>
+require 'raven'
+
+Raven.configure do |config|
+  config.dsn = 'your DSN goes here'
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# Configure Rack to use it (optional; in config.ru).
+use Raven::Rack
+                        </code></pre>
+                        <pre><code data-trim>
+# Log an exception manually.
+begin
+    1 / 0
+rescue ZeroDivisionError => exception
+    Raven.capture_exception(exception)
+end
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>
+                            <img src="img/php.svg">
+                        </h3>
+                        <pre><code data-trim>
+$ composer require "raven/raven"
+                        </code></pre>
+                        <pre><code data-trim>
+// In the autoloader:
+require_once '/path/to/Raven/library/Raven/Autoloader.php';
+Raven_Autoloader::register();
+                        </code></pre>
+                        <pre><code data-trim>
+// In the application:
+$client = new Raven_Client('your DSN goes here');
+$error_handler = new Raven_ErrorHandler($client);
+$error_handler->registerExceptionHandler();
+$error_handler->registerErrorHandler();
+$error_handler->registerShutdownFunction();
+                        </code></pre>
+                        <pre><code data-trim>
+// Log an exception manually.
+try {
+    throw new \Exception('Something went wrong');
+} catch (\Exception $e) {
+    $client->captureException($e);
+}
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section data-background="img/bsod.png">
+                        <h1>Demo time!</h1>
+                    </section>
+
+                    <section>
+                        <p>
+                            http://is.gd/sntry
+                        </p>
+                        <iframe class="stretch"
+                                src="http://findologic.github.io/sentry-browser-demo/">
+                        </iframe>
+                    </section>
+
+                    <section>
+                        <iframe class="stretch"
+                                src="https://app.getsentry.com/christian-ortner/sentry-browser-demo/">
+                        </iframe>
+                    </section>
+                </section>
+
+                <section>
+                    <section data-background="img/welcome_to_the_real_world.jpg">
+                        <h1>Welcome to the real world</h1>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Example issue:
+                            <a href="https://app.getsentry.com/findologic/findologic-js/issues/120045091/">
+                                IE8 incompatibility
+                            </a>
+                        </h3>
+                    </section>
+
+                    <section>
+                        <h3>Issue overview</h3>
+                        <img class="stretch" src="img/issue_overview.png">
+                    </section>
+
+                    <section>
+                        <h3>Events over time</h3>
+                        <img class="stretch" src="img/event_rate.png">
+                    </section>
+                </section>
+
+                <section>
+                    <h1>How Sentry was great for us</h1>
+                    <ul>
+                        <li>We found integration problems</li>
+                        <li>We found a deceptive bug</li>
+                        <li>Russians still love Windows XP</li>
+                        <li>We can fix performance issues before things break</li>
+                        <li>We can prioritize bugs better</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section data-background="img/pitfalls.png">
+                        <h1>Pitfalls</h1>
+                    </section>
+
+                    <section>
+                        <h3>Irrelevant errors - old browsers</h3>
+                        <img src="img/old_browser.png">
+                        <p>
+                            Solution: Snooze forever
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Irrelevant errors - exotic situations</h3>
+                        <img src="img/exotic_error.png">
+                        <p>
+                            Solution: Delete/snooze forever
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Track only your stuff: Black-/Whitelists</h3>
+                        <p>
+                            Example:
+                        </p>
+                        <pre><code data-trim>
+Raven.config('your DSN goes here', {
+  ignoreErrors: [/BoringError/],
+  whitelistUrls: [/\/js\/my-thing\.js/]
+}).install();
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Be mindful of privacy</h3>
+                        <img src="img/data_scrubber.png">
+
+                        <aside class="notes">
+                            <ul>
+                                <li>Override the user context</li>
+                                <li>Use the data scrubber</li>
+                            </ul>
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h1>Conclusion</h1>
+                    <ol>
+                        <li>Integrating Sentry is super easy</li>
+                        <li>Plays well with issue trackers etc.</li>
+                        <li>White-/Blacklisting errors can be tricky</li>
+                        <li>Peace of mind after deployments</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <section class="last-slide" data-background="img/key_visual.png">
+                        <h1 class="fragment">Go out there and catch errors!</h1>
+                        <ul>
+                            <li>
+                                <a href="http://github.com/findologic/sentry-browser-demo">
+                                    findologic/sentry-browser-demo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://findologic.github.io/sentry-browser-demo">
+                                    http://findologic.github.io/sentry-browser-demo
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://findologic.github.io/sentry-browser-demo/slides">
+                                    http://findologic.github.io/sentry-browser-demo/slides
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <img src="img/burger.png">
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <img class="findologo" src="img/findologic.svg">
+
+        <script src="../node_modules/reveal.js/lib/js/head.min.js"></script>
+        <script src="../node_modules/reveal.js/js/reveal.js"></script>
+        <script>
+            Reveal.initialize({
+                history: true,
+                transition: 'convex',
+                backgroundTransition: 'fade',
+                dependencies: [
+                    {
+                        src: '../node_modules/reveal.js/plugin/highlight/highlight.js',
+                        async: true,
+                        callback: function () {
+                            hljs.initHighlightingOnLoad();
+                        }
+                    },
+                    {
+                        src: '../node_modules/reveal.js/plugin/zoom-js/zoom.js',
+                        async: true
+                    },
+                    {
+                        src: '../node_modules/reveal.js/plugin/notes/notes.js',
+                        async: true
+                    }
+                ]
+            });
+        </script>
+    </body>
+</html>
