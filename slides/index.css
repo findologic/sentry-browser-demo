@@ -1,0 +1,72 @@
+.sentry-logo, .demo img, .integrations-logos > img, .alternatives-logos > img {
+    border: none !important;
+    height: 13rem;
+    box-shadow: none !important;
+}
+
+section[data-background] > h1 {
+    -webkit-text-stroke: 3px #111;
+    text-shadow: 0 0 40px #111;
+}
+
+.reveal li {
+    padding-bottom: 1rem;
+}
+
+h3 img {
+    border: none !important;
+    box-shadow: none !important;
+    max-height: 11rem !important;
+    max-width: 11rem !important;
+    vertical-align: middle !important;
+}
+
+.integrations-logos > img {
+    max-height: 3rem;
+    margin: 1rem !important;
+}
+
+.alternatives-logos > img {
+    max-height: 8rem;
+}
+
+.last-slide ul {
+    font-size: 1.5rem;
+    list-style: none;
+    float: right;
+    max-width: 34rem;
+}
+
+.last-slide ul li::before {
+    margin-left: -2rem;
+    font-family: FontAwesome, sans-serif;
+}
+.last-slide ul li:nth-child(1)::before {
+    content: '\f09b';
+}
+.last-slide ul li:nth-child(2)::before {
+    content: '\f0c1';
+}
+.last-slide ul li:nth-child(3)::before {
+ content: '\f108';
+}
+
+.last-slide a {
+    color: #111;
+}
+
+.languages-overview img {
+    zoom: 0.8;
+}
+
+@keyframes beat {
+    from { transform: none; }
+    10% { transform: scale(0.9); }
+    to { transform: none; }
+}
+
+img[src="img/burger.png"] {
+    border: none !important;
+    box-shadow: none !important;
+    animation: beat .5s infinite;
+}

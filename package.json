@@ -60,9 +60,10 @@
     "mainVarName": "sentryBrowserDemo"
   },
   "dependencies": {
-    "babel-plugin-lodash": "^2.3.0",
-    "lodash": "^4.11.1",
-    "raven-js": "^2.3.0",
+    "babel-plugin-lodash": "^3.0.0",
+    "lodash": "^4.11.2",
+    "raven-js": "^3.0.2",
+    "reveal.js": "^3.3.0",
     "uuid": "^2.0.2"
   }
 }
